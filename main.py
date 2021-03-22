@@ -15,8 +15,9 @@ def plot_all (signal, sin_signal):
     graph.save (images_dir + " data_noise")
 
 if __name__ == '__main__':
-    signal, sample_rate = aio.read_signal (filename)
-    sin_signal = pc.get_sin (signal, sample_rate, 1.5)
+    signal, sample_rate = aio.read_signal (filenameshort)
+    signal = signal[:150000]
+    sin_signal = pc.get_sin (signal, sample_rate, 1)
 
     plot_all (signal, sin_signal)
 
