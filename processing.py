@@ -1,4 +1,7 @@
 import numpy as np
+
+#function to add squeak (sinusoid wave)
+
 def get_sin (signal, sample_rate, volume):
     samples = len (signal)
     freq = 10000
@@ -7,6 +10,9 @@ def get_sin (signal, sample_rate, volume):
         sinus = np.sin (2 * freq * np.pi * index / samples)
         sinusoid[index] = sinus
     return (volume * sinusoid).astype(np.float32)
+
+
+# functions for plotting spectrogramm
 
 def get_xn(Xs, n):
     length = len (Xs)
@@ -20,6 +26,9 @@ def get_all_xns (Xs):
     for i in range (int (length / 2)):
         xns.append (np.abs (get_xn (Xs, i)) * 2)
     return xns
+
+def get_hz (k, sample_rate, length):
+    return (sample_rate * k / length).astype(int)
 
 def make_spectrogramm (orig, ndft, noverlap = None):
     '''
