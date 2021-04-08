@@ -9,8 +9,7 @@ def done (number, message = ""):
 def first (f_name):
     return aio.read_signal (f_name)
 
-def second (signal, sample_rate, part, f_out):
-    sin_signal = pc.get_sin (signal, sample_rate, part)
+def second (signal, sin_signal, sample_rate, f_out):
     aio.write_signal (f_out, sin_signal + signal, sample_rate)
     #aio.play_sound (f_out)
     graph.plot_second_task_signals (signal, sin_signal, images_dir)
