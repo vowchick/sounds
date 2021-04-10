@@ -14,9 +14,8 @@ def second (signal, sin_signal, sample_rate, f_out):
     #aio.play_sound (f_out)
     graph.plot_second_task_signals (signal, sin_signal, images_dir)
 
-
-
-def third (signal, ndft, noverlap, sample_rate):
+def third_fourth (signal, ndft, noverlap, sample_rate, filename):
     starts, spec = pc.make_spectrogramm (signal, ndft, noverlap)
     graph.plot_spectrogramm (spec, sample_rate, len (signal), starts)
-    graph.save (images_dir + "spectrogramm")
+    graph.save (images_dir + filename)
+

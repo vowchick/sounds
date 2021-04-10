@@ -27,11 +27,14 @@ if __name__ == '__main__':
     tasks.second (signal, sin_signal, sample_rate, filename_out)
     tasks.done (2, images_dir_message +"\n" +  audio_dir_message)
 
-    tasks.third(signal, ndft, noverlap, sample_rate)
+    tasks.third_fourth (signal, ndft, noverlap, sample_rate, "spectrogramm")
     tasks.done (3, images_dir_message)
 
+    tasks.third_fourth (sin_signal, ndft, noverlap, sample_rate, "spec_of_diff")
+    tasks.done (4, images_dir_message)
+
     test_signal = aio.get_dialing_sound ()
-    tasks.third (test_signal, ndft, noverlap, sample_rate)
+    tasks.third_fourth (test_signal, ndft, noverlap, sample_rate, "test")
     tasks.done ("test3")
 
     test_sin_signal = pc.get_sin (test_signal, test_sample_rate, part)
