@@ -2,15 +2,22 @@ import numpy as np
 
 #function to add squeak (sinusoid wave)
 
-def get_sin (signal, sample_rate, volume):
+def get_sin (signal, sample_rate, volume, freq):
     samples = len (signal)
-    freq = 10000
     sinusoid = np.arange (float(samples))
     for index in range (samples):
         sinus = np.sin (2 * freq * np.pi * index / samples)
         sinusoid[index] = sinus
     return (volume * sinusoid).astype(np.float32)
 
+
+def get_sin_at (hz, sample_rate, length_in_sec):
+    ## 1 sec length time series with sampling rate
+    ts1sec = list (np.linspace (0, np.pi * 2 * hz, sample_rate))
+
+    ## 1 sec length time series with sampling rate
+    ts = ts1sec * length_in_sec
+    return (list (np.sin(ts)))
 
 # functions for plotting spectrogramm
 
