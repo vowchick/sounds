@@ -1,6 +1,26 @@
 import matplotlib.pyplot as plt
 import numpy as np
 import processing as pc
+import scipy.signal as signal
+def plot_transfer (sample_rate):
+    wp = [1850, 2200]
+    ws = [1900, 2150]
+    gpass = 0.1
+    gstop = 10
+    order, wn = signal.cheb1ord (wp, ws, gpass, gstop, fs = sample_rate)
+    b, a = signal.cheby1 (order, 1, wn,
+                        btype='bandstop', fs = sample_rate)
+    w, h = signal.freqz (b, a)
+    x = w * sample_rate * 1.0 / (2 * np.pi)
+    y = 20 * np.log10(abs(h))
+    plt.figure(figsize=(10,5))
+    plt.semilogx(x, y)
+    plt.ylabel('Amplitude [dB]')
+    plt.xlabel('Frequency [Hz]')
+    plt.title('Frequency response')
+    plt.grid(which='both', linestyle='-', color='grey')
+    plt.xticks([20, 50, 100, 200, 500, 1000, 2000, 5000, 10000, 20000], ["20", "50", "100", "200", "500", "1K", "2K", "5K", "10K", "20K"])
+    save("Here")
 def show ():
     plt.show ()
 
@@ -10,6 +30,12 @@ def draw_plot (signal):
 def save (path):
     plt.savefig (path)
     plt.clf ()
+
+def plot_spectrogramm_builtin (x, sample_rate):
+    f, t, Sxx = signal.spectrogram (x, sample_rate)
+    plt.pcolormesh(t, f, Sxx, shading='gouraud')
+    plt.ylabel('Frequency [Hz]')
+    plt.xlabel('Time [sec]')
 
 def plot_second_task_signals (signal, sin_signal, i_dir):
     draw_plot (signal)

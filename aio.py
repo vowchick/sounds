@@ -2,10 +2,12 @@ import librosa
 import simpleaudio as sa
 import soundfile as sf
 import numpy as np
+import scipy.io.wavfile
 def read_signal (path):
     return librosa.load (path)
 def write_signal (path, signal, sample_rate):
-    sf.write (path, signal, sample_rate)
+#    sf.write (path, signal, sample_rate)
+   scipy.io.wavfile.write (path, sample_rate, signal)
 
 def play_sound (filename_out):
     wave_obj = sa.WaveObject.from_wave_file(filename_out)
@@ -55,3 +57,31 @@ def get_dialing_sound ():
     ts = ts1 + ts_silence  + ts2
     return ts
 
+def get_dialing_sound2 ():
+    sample_rate = 4000
+    length_in_sec = 3
+
+    ## --------------------------------- ##
+    ## 3 seconds of "679Hz" sound
+    ## Pressing digit 2 buttom generates 
+    ## the sine waves at frequency 
+    ## 697Hz.
+    ## --------------------------------- ##
+    ts1  = np.array(get_signal_at (697, sample_rate, length_in_sec))
+    ts1  = list (ts1)
+
+
+    ## --------------------------------- ##
+    ## 3 seconds of "digit 2" sounds 
+    ## Pressing digit 2 buttom generates 
+    ## the sine waves at frequency 
+    ##  1336Hz.
+    ## --------------------------------- ##
+    ts3 = np.array (get_signal_at (836, sample_rate, length_in_sec))
+    ts3 = list (ts3)
+
+    ## -------------------- ##
+    ## Add up to 7 seconds
+    ## ------------------- ##
+    ts = ts1
+    return ts

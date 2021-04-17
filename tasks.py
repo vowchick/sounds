@@ -20,14 +20,22 @@ def third_fourth (signal, ndft, noverlap, sample_rate, filename):
     graph.save (images_dir + filename)
 
 import scipy.signal as sl
-def fivth (signal, frequency, sample_rate):
-    wp = frequency
-    ws = 0.9 * frequency
-    gpass = 0.6
-    gstop = 10
+def fivth_sixth (signal, frequency, sample_rate, aio_name, spec_name,
+                ndft, noverlap):
+    wp = [1850, 2200]
+    ws = [1900, 2150]
+    gpass = 0.1
+    gstop = 1
     order, wn = sl.cheb1ord (wp, ws, gpass, gstop, fs = sample_rate)
-    sos = sl.cheby1 (order, 0.01, wn,
-                     btype='highpass', fs = sample_rate, output =
-                         'sos')
-    filtered = sl.sosfilt (sos, signal)
-    return filtered
+    sos = sl.cheby1 (order, 1, wn,
+                     btype='bandstop', output =
+                         'sos', fs = sample_rate)
+    filtered = sl.sosfiltfilt (sos, signal)
+
+    aio.write_signal (aio_name, filtered, sample_rate)
+    third_fourth (filtered, ndft, noverlap, sample_rate, spec_name)
+    third_fourth (signal, ndft, noverlap, sample_rate, "orig_and_squeak")
+    graph.plot_spectrogramm_builtin (filtered, sample_rate)
+    graph.save ("spec_filt")
+    graph.plot_spectrogramm_builtin (signal, sample_rate)
+    graph.save ("spec_orig_squeak")
