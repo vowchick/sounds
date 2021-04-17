@@ -35,7 +35,7 @@ def get_all_xns (Xs):
     return xns
 
 def get_hz (k, sample_rate, length):
-    return (sample_rate * k / length).astype(int)
+    return (float (sample_rate) * k.astype (float) / length).astype(int)
 
 def make_spectrogramm (orig, ndft, noverlap = None):
     '''

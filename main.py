@@ -11,7 +11,7 @@ out_audio_dir = "audio_files/out_files/"
 filenameshorter = in_audio_dir +  "mr_sandman.wav"
 filename_out = out_audio_dir + "sound_with_squeak.wav"
 
-ndft = 256
+ndft = 512
 noverlap = 84
 
 images_dir_message = "(You can look at signal plots in directory %s)" % (im_dir)
@@ -24,11 +24,12 @@ if __name__ == '__main__':
 
     signal, sample_rate = tasks.first (filenameshorter)
     tasks.done (1)
+    print (sample_rate)
     graph.plot_transfer (sample_rate)
     length_in_sec = int (len (signal) / sample_rate)
     sin_signal = np.array (pc.get_sin_at (frequency, sample_rate,
                                           length_in_sec))
-
+    sin_signal = sin_signal[:360000]
     signal = signal[:len (sin_signal)]
     tasks.second (signal, sin_signal, sample_rate, filename_out)
     tasks.done (2, images_dir_message +"\n" +  audio_dir_message)

@@ -1,7 +1,7 @@
 import graph
 import processing as pc
 import aio
-
+import spec
 images_dir = "images/"
 
 def done (number, message = ""):
@@ -16,7 +16,7 @@ def second (signal, sin_signal, sample_rate, f_out):
 
 def third_fourth (signal, ndft, noverlap, sample_rate, filename):
     starts, spec = pc.make_spectrogramm (signal, ndft, noverlap)
-    graph.plot_spectrogramm (spec, sample_rate, len (signal), starts)
+    graph.plot_spectrogramm (spec, sample_rate, ndft, len (signal), starts)
     graph.save (images_dir + filename)
 
 import scipy.signal as sl
@@ -39,3 +39,5 @@ def fivth_sixth (signal, frequency, sample_rate, aio_name, spec_name,
     graph.save ("spec_filt")
     graph.plot_spectrogramm_builtin (signal, sample_rate)
     graph.save ("spec_orig_squeak")
+#     spec.plotstft (filtered, sample_rate, plotpath = "filtered_spec.png")
+#     spec.plotstft (signal, sample_rate, plotpath = "orig_and_squeak.png")
