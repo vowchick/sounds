@@ -33,11 +33,6 @@ def fivth_sixth (signal, frequency, sample_rate, aio_name, spec_name,
     filtered = sl.sosfiltfilt (sos, signal)
 
     aio.write_signal (aio_name, filtered, sample_rate)
+
     third_fourth (filtered, ndft, noverlap, sample_rate, spec_name)
-    third_fourth (signal, ndft, noverlap, sample_rate, "orig_and_squeak")
-    graph.plot_spectrogramm_builtin (filtered, sample_rate)
-    graph.save ("spec_filt")
-    graph.plot_spectrogramm_builtin (signal, sample_rate)
-    graph.save ("spec_orig_squeak")
-#     spec.plotstft (filtered, sample_rate, plotpath = "filtered_spec.png")
-#     spec.plotstft (signal, sample_rate, plotpath = "orig_and_squeak.png")
+    third_fourth (signal, ndft, noverlap, sample_rate, "spec_orig_and_sin")

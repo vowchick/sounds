@@ -24,7 +24,7 @@ if __name__ == '__main__':
 
     signal, sample_rate = tasks.first (filenameshorter)
     tasks.done (1)
-    print (sample_rate)
+
     graph.plot_transfer (sample_rate)
     length_in_sec = int (len (signal) / sample_rate)
     sin_signal = np.array (pc.get_sin_at (frequency, sample_rate,
@@ -34,12 +34,13 @@ if __name__ == '__main__':
     tasks.second (signal, sin_signal, sample_rate, filename_out)
     tasks.done (2, images_dir_message +"\n" +  audio_dir_message)
 
-    tasks.third_fourth (signal, ndft, noverlap, sample_rate, "spectrogramm")
+    tasks.third_fourth (signal, ndft, noverlap, sample_rate, "spec_orig")
     tasks.done (3, images_dir_message)
 
-    tasks.third_fourth (sin_signal, ndft, noverlap, sample_rate, "spec_of_diff")
+    tasks.third_fourth (sin_signal, ndft, noverlap, sample_rate, "spec_sin_sig")
     tasks.done (4, images_dir_message)
 
     tasks.fivth_sixth (signal + sin_signal, frequency, sample_rate,
-                       out_audio_dir + "filtered.wav", "filtered.png",
+                       out_audio_dir + "filtered.wav", "spec_filtered.png",
                        ndft, noverlap)
+    tasks.done (5)
