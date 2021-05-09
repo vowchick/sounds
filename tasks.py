@@ -36,3 +36,7 @@ def fivth_sixth (signal, frequency, sample_rate, aio_name, spec_name,
 
     third_fourth (filtered, ndft, noverlap, sample_rate, spec_name)
     third_fourth (signal, ndft, noverlap, sample_rate, "spec_orig_and_sin")
+def seventh_eight (signal, sample_rate, NFFT, path, noverlap = None):
+    harmonics = pc.find_first_harmonic (signal, NFFT, sample_rate, noverlap)
+    graph.plot_harmonics (harmonics, sample_rate, len (signal), path)
+

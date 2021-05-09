@@ -36,6 +36,9 @@ def get_all_xns (Xs):
 
 def get_hz (k, sample_rate, length):
     return (float (sample_rate) * k.astype (float) / length).astype(int)
+def get_hz_list (k, sample_rate, length):
+    k[:] = [sample_rate * x / length for x in k]
+    return k
 
 def make_spectrogramm (orig, ndft, noverlap = None):
     '''
@@ -60,3 +63,31 @@ def make_spectrogramm (orig, ndft, noverlap = None):
     spec = 10 * np.log10 (spec)
     assert spec.shape[1] == len (starts)
     return (starts, spec)
+
+from scipy.fft import rfft, fft, fftfreq, rfftfreq
+from parabolic import parabolic
+from numpy import log, argmax
+
+
+def find_first_harmonic (signal, NFFT, sample_rate, noverlap = None):
+    if noverlap is None:
+        noverlap = NFFT // 2
+    harmonics = []
+    starts = np.arange (0, len (signal), NFFT - noverlap, dtype = int)
+    starts = starts[starts + NFFT <  len (signal)]
+    for start in starts:
+        window = rfft(signal[start : start + NFFT])
+        i = argmax (abs (window))
+        ind = parabolic (log (abs (window)), i)[0]
+        harmonics.append (ind * sample_rate / NFFT)
+    return harmonics
+
+def get_last_non_zero_index (lst):
+    for ind, val in enumerate (reversed (lst)):
+        if abs (val) > 100:
+            return len (lst) - ind - 1
+    return -1
+def test_fft (signal, sample_rate):
+    y = rfft (signal)
+    x = rfftfreq (len (signal), 1 / sample_rate)[:len (signal)//2]
+    return x, y

@@ -1,3 +1,8 @@
 rm -rf  *__*__
 rm -rf *.pyc
 rm -rf .*/.DS_Store
+rm *.png
+cd images
+rm *.png
+cd ../audio_files/out_files
+rm *.wav

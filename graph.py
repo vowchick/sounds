@@ -31,6 +31,14 @@ def save (path):
     plt.savefig (path)
     plt.clf ()
 
+def plot_harmonics (harmonics, sample_rate, length, path):
+    m = length / sample_rate
+    x_ticks = np.arange (0, m, m / len (harmonics))
+    plt.plot (x_ticks, harmonics)
+    plt.xlabel ("Sec")
+    plt.ylabel ("Hz")
+    save (path)
+
 def plot_spectrogramm_builtin (x, sample_rate):
 #     f, t, Sxx = signal.spectrogram (x, sample_rate)
 #     plt.pcolormesh(t, f, Sxx, shading='gouraud')
@@ -77,3 +85,7 @@ def plot_spectrogramm (spec, sample_rate, length, length_sig, starts):
                                                                    spec.shape))
     mappable = None
     plt.colorbar (mappable, use_gridspec = True)
+def draw_test_fft (x, y, n):
+    plt.plot (x, 2.0 / n * np.abs (y[0:n//2]))
+    plt.grid()
+    save ("fft_test.png")

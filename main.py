@@ -44,3 +44,8 @@ if __name__ == '__main__':
                        out_audio_dir + "filtered.wav", "spec_filtered.png",
                        ndft, noverlap)
     tasks.done (5)
+    tasks.done (6)
+    tasks.seventh_eight (signal, sample_rate, ndft, im_dir + "harmonics.png")
+    x, y = pc.test_fft (sin_signal, sample_rate)
+    graph.draw_test_fft (x, y, len (signal))
+
