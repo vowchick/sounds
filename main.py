@@ -25,12 +25,13 @@ if __name__ == '__main__':
     signal, sample_rate = tasks.first (filenameshorter)
     tasks.done (1)
 
-    graph.plot_transfer (sample_rate)
-    length_in_sec = int (len (signal) / sample_rate)
+    length_in_sec = int (len (signal) / sample_rate) #get signal length in seconds
     sin_signal = np.array (pc.get_sin_at (frequency, sample_rate,
                                           length_in_sec))
+    #cut signal and sin_signal and make them the same length
     sin_signal = sin_signal[:360000]
     signal = signal[:len (sin_signal)]
+
     tasks.second (signal, sin_signal, sample_rate, filename_out)
     tasks.done (2, images_dir_message +"\n" +  audio_dir_message)
 
@@ -43,9 +44,9 @@ if __name__ == '__main__':
     tasks.fivth_sixth (signal + sin_signal, frequency, sample_rate,
                        out_audio_dir + "filtered.wav", "spec_filtered.png",
                        ndft, noverlap)
-    tasks.done (5)
-    tasks.done (6)
     tasks.seventh_eight (signal, sample_rate, ndft, im_dir + "harmonics.png")
-    x, y = pc.test_fft (sin_signal, sample_rate)
-    graph.draw_test_fft (x, y, len (signal))
+    tasks.done (7)
+    tasks.done (8)
+    # x, y = pc.test_fft (sin_signal, sample_rate)
+    # graph.draw_test_fft (x, y, len (signal))
 

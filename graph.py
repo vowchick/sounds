@@ -63,7 +63,7 @@ def plot_spectrogramm (spec, sample_rate, length, length_sig, starts):
     plt.figure (figsize = (20, 8))
     plt_spec = plt.imshow (spec, origin = 'lower')
     total_ts_sec = int (length_sig / sample_rate)
-    ## configure y axis
+    # configure y axis
 
     y_ticks = 10
     k = np.linspace (0, spec.shape[0], y_ticks)

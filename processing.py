@@ -12,10 +12,10 @@ def get_sin (signal, sample_rate, volume, freq):
 
 
 def get_sin_at (hz, sample_rate, length_in_sec):
-    ## 1 sec length time series with sampling rate
+    # construct 1 second long time series with given sample_rate and frequency (hz)
     ts1sec = list (np.linspace (0, np.pi * 2 * hz, sample_rate))
 
-    ## 1 sec length time series with sampling rate
+    # concatenate to get needed length
     ts = ts1sec * int (length_in_sec)
     return (list (np.sin (ts)))
 
@@ -41,17 +41,17 @@ def get_hz_list (k, sample_rate, length):
     return k
 
 def make_spectrogramm (orig, ndft, noverlap = None):
-    '''
+    """
        orig - original data
-       ndft     - number of smamples used in each block for DFT
+       ndft     - number of samples used in each block for DFT
        noverlap - number of points that overlap between blocks.
-    '''
+    """ 
     if noverlap is None:
         noverlap = ndft / 2
     noverlap = int (noverlap)
 
     starts = np.arange (0, len (orig), ndft - noverlap, dtype = int)
-    # leave windows >= ndft sample size
+    # leave windows greater or equal to ndft sample size
     starts = starts[starts + ndft < len (orig)]
     xns = []
     for start in starts:
@@ -59,7 +59,7 @@ def make_spectrogramm (orig, ndft, noverlap = None):
         window = get_all_xns (orig[start : start + ndft])
         xns.append (window)
     spec = np.array (xns).T
-    #rescale (standard procedure)
+    #rescale (standart procedure)
     spec = 10 * np.log10 (spec)
     assert spec.shape[1] == len (starts)
     return (starts, spec)

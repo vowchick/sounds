@@ -1,24 +1,21 @@
 import librosa
-import simpleaudio as sa
 import soundfile as sf
 import numpy as np
 import scipy.io.wavfile
 def read_signal (path):
+    """
+    read .wav file into array and scalar (sample rate)
+    """
     return librosa.load (path)
 def write_signal (path, signal, sample_rate):
-#    sf.write (path, signal, sample_rate)
+   """
+   write signal into .wav file with given path and sample rate
+   """
    scipy.io.wavfile.write (path, sample_rate, signal)
 
-def play_sound (filename_out):
-    wave_obj = sa.WaveObject.from_wave_file(filename_out)
-    play_obj = wave_obj.play()
-    play_obj.wait_done()
-
 def get_signal_at (hz, sample_rate, length_in_sec):
-    ## 1 sec length time series with sampling rate
+    # construct 1 second length time series with given sampling rate and frequency
     ts1sec = list (np.linspace (0, np.pi * 2 * hz, sample_rate))
-
-    ## 1 sec length time series with sampling rate
     ts = ts1sec * length_in_sec
     return (list(np.sin(ts)))
 
