@@ -79,13 +79,16 @@ def find_first_harmonic (signal, NFFT, sample_rate, noverlap = None):
     for start in starts:
         #perform fft for real input in a window
         window = rfft(signal[start : start + NFFT])
-        #find peak
         i = argmax (abs (window))
-        #interpolate to find better peak
         ind = parabolic (log (abs (window)), i)[0]
-        harmonics.append (ind * sample_rate / NFFT)
+        harmonics.append (ind)
     return harmonics
 
+def get_last_non_zero_index (lst):
+    for ind, val in enumerate (reversed (lst)):
+        if abs (val) > 100:
+            return len (lst) - ind - 1
+    return -1
 def test_fft (signal, sample_rate):
     y = rfft (signal)
     x = rfftfreq (len (signal), 1 / sample_rate)[:len (signal)//2]

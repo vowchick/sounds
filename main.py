@@ -44,7 +44,7 @@ if __name__ == '__main__':
     tasks.fivth_sixth (signal + sin_signal, frequency, sample_rate,
                        out_audio_dir + "filtered.wav", "spec_filtered.png",
                        ndft, noverlap)
-    tasks.seventh_eight (signal, sample_rate, ndft, im_dir + "harmonics.png")
+    tasks.seventh_eight (signal, sample_rate, ndft, im_dir + "harmonics.png", noverlap)
     tasks.done (7)
     tasks.done (8)
     # x, y = pc.test_fft (sin_signal, sample_rate)

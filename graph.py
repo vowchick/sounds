@@ -31,14 +31,6 @@ def save (path):
     plt.savefig (path)
     plt.clf ()
 
-def plot_harmonics (harmonics, sample_rate, length, path):
-    m = length / sample_rate
-    x_ticks = np.arange (0, m, m / len (harmonics))
-    plt.plot (x_ticks, harmonics)
-    plt.xlabel ("Sec")
-    plt.ylabel ("Hz")
-    save (path)
-
 def plot_spectrogramm_builtin (x, sample_rate):
 #     f, t, Sxx = signal.spectrogram (x, sample_rate)
 #     plt.pcolormesh(t, f, Sxx, shading='gouraud')
@@ -58,6 +50,12 @@ def plot_second_task_signals (signal, sin_signal, i_dir):
     save (i_dir + "noise")
     draw_plot (sin_signal + signal)
     save (i_dir + " data_noise")
+
+def plot_harmonics (harmonics, sample_rate, length, path):
+    m = length / sample_rate
+    x_ticks = np.arange (0, m, m / len (harmonics))
+    plt.plot (harmonics)
+    save (path)
 
 def plot_spectrogramm (spec, sample_rate, length, length_sig, starts):
     plt.figure (figsize = (20, 8))

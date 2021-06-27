@@ -73,5 +73,8 @@ def seventh_eight (signal, sample_rate, NFFT, path, noverlap = None):
     #1
     harmonics = pc.find_first_harmonic (signal, NFFT, sample_rate, noverlap)
     #2
+    starts, spec = pc.make_spectrogramm (signal, NFFT, noverlap)
+    #2
+    graph.plot_spectrogramm (spec, sample_rate, NFFT, len (signal), starts)
     graph.plot_harmonics (harmonics, sample_rate, len (signal), path)
 
